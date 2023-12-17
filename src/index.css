@@ -21,9 +21,9 @@ html{
     background-color: rgba(0, 0, 0, 0.519);
 }
 .header-input{
-    border: 3px solid #22668D;
-    background: transparent;
-    border-radius: 15px;
+    background-color: #22668dcd;
+    border-radius: 5px;
+    color: #ffe554;
 }
 @media screen and (max-width:830px) {
     html{

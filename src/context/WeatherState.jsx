@@ -7,7 +7,7 @@ function WeatherState(props) {
     const apiKey = import.meta.env.VITE_API_KEY;
 
     const getWeather = async(city)=>{
-
+        try {
         // gettin latitude and longitude
         const locationData=await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city},in&limit=1&appid=${apiKey}`)
         const locationRes=await locationData.json();
@@ -15,7 +15,8 @@ function WeatherState(props) {
         const lon=locationRes[0].lon;
         const location= locationRes[0].name;
         
-        // getting weather
+        
+            // getting weather
         const weatherData=await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`)
         const weatherRes= await weatherData.json();
         setWeather({
@@ -29,6 +30,9 @@ function WeatherState(props) {
             visibility:weatherRes.visibility/1000,
             wind_speed:weatherRes.wind.speed,
         });
+        } catch (error) {
+            alert("Enter valid city name")
+        }
     }
 
   return (
