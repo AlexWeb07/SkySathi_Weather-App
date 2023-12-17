@@ -9,7 +9,7 @@ function WeatherState(props) {
     const getWeather = async(city)=>{
         try {
         // gettin latitude and longitude
-        const locationData=await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city},in&limit=1&appid=${apiKey}`)
+        const locationData=await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city},in&limit=1&appid=${apiKey}`)
         const locationRes=await locationData.json();
         const lat=locationRes[0].lat;
         const lon=locationRes[0].lon;
