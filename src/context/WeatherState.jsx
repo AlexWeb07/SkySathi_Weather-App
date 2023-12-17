@@ -19,7 +19,7 @@ function WeatherState(props) {
         const weatherData=await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=26.2967719&lon=73.0351433&appid=c4c22b097afbe2cc62c66c2eb2c7f1ec`)
         const weatherRes= await weatherData.json();
         setWeather({
-            location,
+            location:"jodhpur",
             title:weatherRes.weather[0].main,
             desc:weatherRes.weather[0].description,
             icon:`https://openweathermap.org/img/wn/${weatherRes.weather[0].icon}@4x.png`,
