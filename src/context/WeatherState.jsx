@@ -30,7 +30,7 @@ function WeatherState(props) {
             wind_speed:weatherRes.wind.speed,
         });
         } catch (error) {
-            console.log(error);
+            alert("Enter valid city name!!");
         }
     }
 
