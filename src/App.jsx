@@ -1,10 +1,12 @@
 import React from 'react'
-
+import Background from './components/Background'
+import WeatherState from './context/WeatherState'
+import Header from './components/Header'
 function App() {
   return (
-    <div>
-      <h1>SkySathi</h1>
-    </div>
+    <WeatherState>
+      <Background/>
+    </WeatherState>
   )
 }
 
