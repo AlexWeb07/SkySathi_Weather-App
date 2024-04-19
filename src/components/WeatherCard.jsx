@@ -4,10 +4,42 @@ import WeatherContext from '../context/WeatherContext';
 
 function WeatherCard() {
     const context=useContext(WeatherContext);
-    const {weather,getWeather,city,setCity}=context;
-    // console.log(weather.icon);
+    const {weather,getWeather,city,setCity,setWeather}=context;
+    const apiKey = import.meta.env.VITE_API_KEY;
+    const [convert,setConvert]=useState({c:["text-[var(--clr1)]",true],f:["text-[var(--clr3)]",false]})
+    const [text,setText]=useState("℃")
+
+    const changeToF=(e)=>{
+        const tempF=((9/5 * weather.temp) + 32).toFixed(2)
+        const flF=((9/5 * weather.fl) + 32).toFixed(2)
+        setWeather({...weather,temp:tempF,fl:flF})
+        setConvert({c:["text-[var(--clr3)]",false],f:["text-[var(--clr1)]",true]})
+        setText("℉")
+    }
+    const changeToC=(e)=>{
+        const tempF=((weather.temp- 32) * 5/9).toFixed(2)
+        const flF=((weather.fl-32) *5/9).toFixed(2)
+        setWeather({...weather,temp:tempF,fl:flF})
+        setConvert({c:["text-[var(--clr1)]",true],f:["text-[var(--clr3)]",false]})
+        setText("℃")
+    }
+
+    useEffect(()=>{
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(async (position)=>{
+                const lat=position.coords.latitude
+                const lon=position.coords.longitude;
+                const response= await fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${apiKey}`)
+                const data=await response.json();
+                // console.log(data[0].name);
+                setCity(data[0].name)
+            })
+        } 
+    },[])
+
     useEffect(()=>{  
-        getWeather(city);
+        getWeather(city)
+        setConvert({c:["text-[var(--clr1)]",true],f:["text-[var(--clr3)]",false]})
     },[city])
     return(
         <div className='card w-[25rem] h-[30rem] rounded-lg backdrop-blur-sm flex flex-col justify-start gap-3'>
@@ -23,11 +55,11 @@ function WeatherCard() {
             <div className='w-full flex flex-col justify-center items-center'>
                 <span className='text-[var(--clr1)] text-3xl'>
                    {weather.temp}&nbsp;
-                    <button className='text-[var(--clr3)]'>℃</button>
+                    <button onClick={changeToC} disabled={convert.c[1]} className={convert.c[0]} >℃</button>
                     &nbsp;|&nbsp;
-                    <button>℉</button> 
+                    <button onClick={changeToF} disabled={convert.f[1]} className={convert.f[0]} >℉</button> 
                 </span>
-                <p className='text-[var(--clr2)]'>Feels Like {weather.fl}<span>℃</span></p>
+                <p className='text-[var(--clr2)]'>Feels Like {weather.fl}&nbsp; <span>{text}</span></p>
             </div>
 
             <div className='w-full flex flex-col justify-center items-center  text-[var(--clr3)] text-xl'>

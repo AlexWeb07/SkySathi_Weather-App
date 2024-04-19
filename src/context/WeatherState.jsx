@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import WeatherContext from './WeatherContext'
 
 function WeatherState(props) {
-    const[city,setCity]=useState("jodhpur");
+    const[city,setCity]=useState("");
     const [weather,setWeather]=useState({location:"",title:"",desc:"",icon:"",temp:null,fl:null,humid:null,visibility:null,wind_speed:null,time:"",result:true});
     const apiKey = import.meta.env.VITE_API_KEY;
+
 
     const getWeather = async(city)=>{
         try {
@@ -14,8 +15,8 @@ function WeatherState(props) {
         const lat=locationRes[0].lat;
         const lon=locationRes[0].lon;
         const location= locationRes[0].name;
-        
-            // getting weather
+    
+        // getting weather
         const weatherData=await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`)
         const weatherRes= await weatherData.json();
         setWeather({
