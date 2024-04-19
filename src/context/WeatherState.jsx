@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import WeatherContext from './WeatherContext'
 
 function WeatherState(props) {
-    const[city,setCity]=useState("");
+    const[city,setCity]=useState();
     const [weather,setWeather]=useState({location:"",title:"",desc:"",icon:"",temp:null,fl:null,humid:null,visibility:null,wind_speed:null,time:"",result:true});
     const apiKey = import.meta.env.VITE_API_KEY;
 
