@@ -29,7 +29,7 @@ function WeatherCard() {
             navigator.geolocation.getCurrentPosition(async (position)=>{
                 const lat=position.coords.latitude
                 const lon=position.coords.longitude;
-                const response= await fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${apiKey}`)
+                const response= await fetch(`https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${apiKey}`)
                 const data=await response.json();
                 // console.log(data[0].name);
                 setCity(data[0].name)
